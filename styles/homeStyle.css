@@ -1,0 +1,46 @@
+body:before {
+	content: '';
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-image: url('../images/HomeBackground.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	filter: blur(15px);
+	z-index: -9;
+}
+h1 {
+	color: #FFF222;
+	text-decoration: underline;
+	display: inline;
+	font-size: 100px;
+	margin-left: 35%;
+	text-shadow: 5px 5px 3px gray;
+}
+div {
+	margin: auto auto;
+	width: 20%;
+	height: 20%;
+	background-color: blue;
+	color: white;
+	border-radius: 20px;
+	padding: 20px;
+	text-align: center;
+	margin-top: 10%;
+	opacity: 0.6;
+	box-shadow: 2px 2px 5px 5px gray, -2px -2px 5px 5px gray;
+}
+div button {
+	background-color: yellow;
+	margin: 10px;
+	border-radius: 20px;
+	padding: 5px;
+	width: 10em;
+	height: 5em;
+}
+div p {
+	font-size: 20px;
+	color: white;
+	font-family: sans-serif;
+}
