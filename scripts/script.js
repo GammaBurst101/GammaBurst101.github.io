@@ -111,7 +111,8 @@ function ballHitBrick (ball, brick) {
 	score += 10;
 	scoreText.setText('Points: '+score);
 	
-	var bricksLeft = 0;
+	//As of 11.13.19, the following code counts 1 extra brick every time so the initial brick count is set to -1 (temp fix)
+	var bricksLeft = -1;
 	for (i = 0; i < bricks.children.length; i++) {
 		if (bricks.children[i].alive == true)
 			bricksLeft ++;
