@@ -6,14 +6,6 @@ body {
 	background-image: linear-gradient( rgba(14.5%, 80%, 96.9%, 1), rgba(14.5%, 80%, 96.9%, 0) );
 	background-repeat: no-repeat;
 }
-canvas {
-	background: #EAF0F1;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 9%;
-	border-radius: 10px;
-}
 h1 {
 	text-align: center;
 	color: white;

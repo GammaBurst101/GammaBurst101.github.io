@@ -1,200 +1,165 @@
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var ballRadius = 10;
-
-//x and y coordinates of the ball
-var x = canvas.width/2;
-var y = canvas.height-30;
-
-//speeds of the ball
-var dx = 2;
-var dy = -2;
-
-//Increase in speed every time the ball hits the paddle
-var acceleration = 0.4;
-
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width-paddleWidth)/2; // start at the middle
-
-//Brick properties
-var brickRowCount = 3;
-var brickColumnCount = 5;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-
-//Points for destroying bricks
+var game = new Phaser.Game(480, 320, Phaser.CANVAS, null, {preload: preload, create: create, update: update});
+var ball;
+var paddle;
+var bricks;
+var newBrick;
+var brickInfo;
+var scoreText;
 var score = 0;
-
 var lives = 3;
-
-var bricks = [];
-for (var c = 0; c < brickColumnCount; c++) {
-	bricks[c] = [];
-	for (var r = 0; r < brickRowCount; r++) {
-		bricks[c][r] = { x: 0, y: 0 , status: 1};
-	}
-}
-
-var rightPressed = false;
-var leftPressed = false;
-
-//Registering event listeners
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = true;
-    }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = true;
-    }
-}
-
-function keyUpHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = false;
-    }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = false;
-    }
-}
-
-function collisionDetection() {
-	for (var c = 0; c < brickColumnCount; c++) {
-		for (var r = 0; r < brickRowCount; r++) {
-			var b = bricks[c][r];
-			
-			if (b.status == 1) {
-				if ( (x > b.x) && (x < b.x + brickWidth) && (y > b.y) && (y < b.y + brickHeight) ) {
-					dy = -dy;
-					b.status = 0;
-					score++;
-					
-					if (score == brickColumnCount * brickRowCount) {
-						alert ("You win, Congratulations! \n Your score was: "+score);
-						document.location.reload();
-					}
-				}
-			}
-		}
-	}
-}
-
-function drawScore () {
-	ctx.font = "16px Arial";
-	ctx.fillStyle = "#0095DD";
-	ctx.fillText("Score: "+score, 8, 20);
-}
-
-function drawLives() {
-	ctx.font = "16px Arial";
-	ctx.fillStyle = "#0095DD";
-	ctx.fillText ("Lives: "+lives, canvas.width - 65, 20);
-}
-
-function drawBall() {
-    ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-function drawPaddle() {
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawBricks() {
-	for (var c = 0; c < brickColumnCount; c++) {
-		for (var r = 0; r < brickRowCount; r++) {
-			
-			if (bricks[c][r].status == 1) {
-				var brickX = (c*(brickWidth + brickPadding)) + brickOffsetLeft;
-				var brickY = ( r * (brickHeight + brickPadding) ) + brickOffsetTop;
-				
-				bricks[c][r].x = brickX;
-				bricks[c][r].y = brickY;
-				
-				ctx.beginPath();
-				ctx.rect (brickX, brickY, brickWidth, brickHeight);
-				ctx.fillStyle = "#0095DD";
-				ctx.fill();
-				ctx.closePath();
-			}			
-		}
-	}
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-	drawBricks();
-    drawBall();
-    drawPaddle();
-	drawScore();
-	drawLives();
-	collisionDetection();
-    
-    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
-        dx = -dx;
-    }
-    if(y + dy < ballRadius) {//Bouncing off the top wall
+var livesText;
+var lifeLostText;
+var textStyle = { font: '18px Arial', fill: '#0095DD' };
+var playing = false;
+var startButton;
 	
-        dy = -dy;
-		
-    } else if (y + dy > canvas.height - ballRadius) {
-		
-		if ( (x > paddleX) && (x < paddleX + paddleWidth) ) {//If the ball has hit the paddle
-		
-			//Increasing the ball's velocity
-			if (dx < 0) {
-				dx -= acceleration;
-			} else {
-				dx += acceleration;
-			}
-			dy += acceleration;
-		
-			//Making the ball go back up
-			dy = -dy;
-			
-			
-		} else {//If it hits the bottom wall then the game ends
-			
-			if (lives == 0) {
-				alert("GAME OVER \n Your score: "+score);
-				document.location.reload();
-			} else {
-				lives --;
-				acceleration += 0.2; // Make the game tougher
-				
-				//Resetting the game
-				x = canvas.width / 2;
-				y = canvas.height-30;
-				dx = 2;
-				dy = -2;
-				paddleX = (canvas.width - paddleWidth ) / 2;
-			}
-		}
-	}
-    
-    if(rightPressed && paddleX < canvas.width-paddleWidth) {
-        paddleX += 7;
-    }
-    else if(leftPressed && paddleX > 0) {
-        paddleX -= 7;
-    }
-    
-    x += dx;
-    y += dy;
+function preload(){
+	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.scale.pageAlignHorizontally = true;
+	game.scale.pageAlignVertically = true;
+	game.stage.backgroundColor = "#eee";
 	
-	requestAnimationFrame(draw);
+	//Load the assets required for the game
+	game.load.image('ball', 'images/ball.png');
+	game.load.image('paddle', 'images/paddle.png');
+	game.load.image('brick', 'images/brick.png');
+	game.load.spritesheet('ball', 'images/wobble.png', 20, 20);
+	game.load.spritesheet('button', 'images/button.png', 120, 40);
+}
+function create() {
+	//Ball
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	ball = game.add.sprite(game.world.width*0.5, game.world.height-25, 'ball');
+	ball.animations.add('wobble', [0,1,0,2,0,1,0,2,0], 24);
+	ball.anchor.set(0.5);
+	game.physics.enable(ball, Phaser.Physics.ARCADE);
+	ball.body.collideWorldBounds = true;
+	ball.body.bounce.set(1);
+	
+	game.physics.arcade.checkCollision.down = false;
+	ball.checkWorldBounds = true;
+	ball.events.onOutOfBounds.add (ballLeaveScreen, this);
+	
+	//Paddle
+	paddle = game.add.sprite(game.world.width*0.5, game.world.height-5, 'paddle');
+	paddle.anchor.set(0.5, 1);
+	game.physics.enable(paddle, Phaser.Physics.ARCADE);
+	paddle.body.immovable = true;
+	
+	initBricks();
+	
+	//Labels
+	scoreText = game.add.text( 5, 5, 'Points: 0', textStyle);
+	livesText = game.add.text(game.world.width - 5, 5, 'Lives: '+lives, textStyle);
+	livesText.anchor.set(1, 0);
+	lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, click to continue', textStyle);
+	lifeLostText.anchor.set(0.5);
+	lifeLostText.visible = false;
+	
+	//Start Button
+	startButton = game.add.button(game.world.width * 0.5, game.world.height * 0.5, 'button', startGame, this, 1, 0, 2);
+	startButton.anchor.set(0.5);
 }
 
-draw();
+function update() {
+	game.physics.arcade.collide(ball, paddle, ballHitPaddle);
+	game.physics.arcade.collide(ball, bricks, ballHitBrick);
+	
+	if (playing)
+		paddle.x = game.input.x || game.world.width*0.5;
+}
+
+function initBricks() {
+	brickInfo = {
+		width: 50,
+		height: 20,
+		count: {
+			row: 3,
+			col: 7
+		},
+		offset: {
+			top: 50,
+			left: 60
+		},
+		padding: 10
+	};
+	
+	bricks = game.add.group();
+	
+	for (c = 0; c < brickInfo.count.col; c++) {
+		for (r = 0; r < brickInfo.count.row; r++) {
+			brickX = ( c * (brickInfo.width + brickInfo.padding)) + brickInfo.offset.left;
+			brickY = ( r * (brickInfo.height + brickInfo.padding)) + brickInfo.offset.top;
+			newBrick = game.add.sprite(brickX, brickY, 'brick');
+			game.physics.enable(newBrick, Phaser.Physics.ARCADE);
+			newBrick.body.immovable = true;
+			newBrick.anchor.set(0.5);
+			bricks.add(newBrick);
+		}
+	}
+}
+
+function ballHitBrick (ball, brick) {
+	//Tweening the bricks to ease out 
+	var killTween = game.add.tween(brick.scale);
+	killTween.to({x: 0, y: 0}, 200, Phaser.Easing.Linear.None);
+	killTween.onComplete.addOnce( function () {
+		brick.kill();
+	}, this);
+	killTween.start();
+	
+	score += 10;
+	scoreText.setText('Points: '+score);
+	
+	var bricksLeft = 0;
+	for (i = 0; i < bricks.children.length; i++) {
+		if (bricks.children[i].alive == true)
+			bricksLeft ++;
+	}
+	
+	if (bricksLeft == 0) {
+		alert('You won the game, congratulations!');
+		location.reload();
+	}
+}
+
+function ballLeaveScreen() {
+	lives--;
+	if (lives >= 0) {
+		livesText.setText('Lives: '+lives);
+		lifeLostText.visible = true;
+		ball.reset(game.world.width*0.5, game.world.height - 25);
+		paddle.reset(game.world.width*0.5, game.world.height - 5);
+		game.input.onDown.addOnce(function() {
+			lifeLostText.visible = false;
+			ball.body.velocity.set(150, -150);
+		}, this);
+	} else {
+		alert('You lost, game over!');
+		location.reload();
+	}
+}
+
+//Function to animate the ball wobbling when it hits the paddle
+function ballHitPaddle(ball, paddle) {
+	ball.animations.play('wobble');
+}
+
+//Function to start the game when the startButton is clicked
+function startGame() {
+	startButton.destroy();
+	ball.body.velocity.set(150, -150);
+	playing = true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
