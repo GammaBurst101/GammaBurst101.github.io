@@ -9,12 +9,22 @@
 	<body>
 		<h1>GameHub</h1>
 		
-		<div>
+		<div id="welcomeMsg">
 			<p>
 				Let's go back to our roots.<br>
 				Let's go back to pong!<br>
-				<a href="gamePage.html"> <button type = "button">Jump In!</button> </a>
+				<a href="#login"> <button type = "button">Jump In!</button> </a>
 			</p>
+		</div>
+		
+		<div id="login">
+			<button class = "tabs" id="loginBtn">Login</button>	<button class = "tabs" id="signupBtn">Signup</button>
+			<hr>
+			<form>
+				<input type="text" placeholder="Username"><br>
+				<input type="password" placeholder="Password"><br>
+				<input type="submit" value="Login">
+			</form>
 		</div>
 	</body>
 </html>
