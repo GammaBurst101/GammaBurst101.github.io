@@ -17,14 +17,51 @@
 			</p>
 		</div>
 		
-		<div id="login">
-			<button class = "tabs" id="loginBtn">Login</button>	<button class = "tabs" id="signupBtn">Signup</button>
+		<div id="loginSignup">
+		
+			<!-- Tabs for navigating between login and signup -->
+			<button class = "tabs" id="loginBtn" onclick="loginClicked()">Login</button>
+			<button class = "tabs" id="signupBtn" onclick="signupClicked()">Signup</button>
 			<hr>
-			<form>
-				<input type="text" placeholder="Username"><br>
-				<input type="password" placeholder="Password"><br>
-				<input type="submit" value="Login">
-			</form>
-		</div>
+			
+			<!-- Login form -->
+			<div id="login">
+				<form action="gamePage.html">
+					<input type="text" placeholder="Username" required><br>
+					<input type="password" placeholder="Password" required><br>
+					<input type="submit" value="Login">
+				</form>
+			</div><!-- Login div -->
+			
+			<!-- Signup form -->
+			<div id="signup">
+				<form action="gamePage.html">
+					<input type="text" placeholder="Email" required><br>
+					<input type="text" placeholder="Username" required><br>
+					<input type="password" placeholder="Password" required><br>
+					<input type="submit" value="Signup">
+				</form>
+			</div><!-- Signup div -->
+			
+		</div> <!-- Login/Signup div -->
+		
+		<script src="scripts/homeScript.js"></script>
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
