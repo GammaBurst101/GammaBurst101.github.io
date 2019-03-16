@@ -9,12 +9,59 @@
 	<body>
 		<h1>GameHub</h1>
 		
-		<div>
+		<div id="welcomeMsg">
 			<p>
 				Let's go back to our roots.<br>
 				Let's go back to pong!<br>
-				<a href="gamePage.html"> <button type = "button">Jump In!</button> </a>
+				<a href="#login"> <button type = "button">Jump In!</button> </a>
 			</p>
 		</div>
+		
+		<div id="loginSignup">
+		
+			<!-- Tabs for navigating between login and signup -->
+			<button class = "tabs" id="loginBtn" onclick="loginClicked()">Login</button>
+			<button class = "tabs" id="signupBtn" onclick="signupClicked()">Signup</button>
+			<hr>
+			
+			<!-- Login form -->
+			<div id="login">
+				<form action="gamePage.html">
+					<input type="text" placeholder="Username" required><br>
+					<input type="password" placeholder="Password" required><br>
+					<input type="submit" value="Login">
+				</form>
+			</div><!-- Login div -->
+			
+			<!-- Signup form -->
+			<div id="signup">
+				<form action="gamePage.html">
+					<input type="text" placeholder="Email" required><br>
+					<input type="text" placeholder="Username" required><br>
+					<input type="password" placeholder="Password" required><br>
+					<input type="submit" value="Signup">
+				</form>
+			</div><!-- Signup div -->
+			
+		</div> <!-- Login/Signup div -->
+		
+		<script src="scripts/homeScript.js"></script>
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body:before {
 	content: '';
 	position: fixed;
@@ -18,7 +22,9 @@ h1 {
 	margin-left: 35%;
 	text-shadow: 5px 5px 3px gray;
 }
-div {
+
+/*	The welcome message	*/
+#welcomeMsg {
 	margin: auto auto;
 	width: 20%;
 	height: 20%;
@@ -31,7 +37,7 @@ div {
 	opacity: 0.6;
 	box-shadow: 2px 2px 5px 5px gray, -2px -2px 5px 5px gray;
 }
-div button {
+#welcomeMsg button {
 	background-color: yellow;
 	margin: 10px;
 	border-radius: 20px;
@@ -39,8 +45,79 @@ div button {
 	width: 10em;
 	height: 5em;
 }
-div p {
+#welcomeMsg p {
 	font-size: 20px;
 	color: white;
 	font-family: sans-serif;
 }
+
+/*	The login/signup menu */
+#loginSignup {
+	margin: auto auto;
+	width: 90vw;
+	height: 90vh;
+	background-color: blue;
+	color: white;
+	border-radius: 20px;
+	padding: 20px;
+	text-align: center;
+	margin-top: 50vh;
+	opacity: 0.7;
+	box-shadow: 2px 2px 5px 5px gray, -2px -2px 5px 5px gray;
+}
+
+.tabs {
+	background-color: blue;
+	opacity: 0.7;
+	color: white;
+	border: none;
+	font-size: 30px;
+	margin: 10px 100px;
+}
+
+form {
+	margin-top: 2%;
+}
+
+#signupBtn {
+	opacity: 0.4;/*The login form will be active as default*/
+}
+
+/*	Form input styles */
+input[type=text],input[type=password] {
+	width: 80%;
+	margin: 50px;
+	padding: 25px;
+	border-radius: 50px;
+	background-color: #74B9FF;
+	font-size: 25px;
+	border: none;
+}
+
+input[type=submit] {
+	padding: 25px;
+	border-radius: 50px;
+	font-size: 25px;
+}
+
+/* Sign up form*/
+#signup {
+	display: none;/*We want the login form to be displayed as default*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
