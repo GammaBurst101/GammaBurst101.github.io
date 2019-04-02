@@ -29,6 +29,7 @@ function create() {
 	//Ball
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	ball = game.add.sprite(game.world.width*0.5, game.world.height-25, 'ball');
+	ball.scale.setTo(1.3);
 	ball.animations.add('wobble', [0,1,0,2,0,1,0,2,0], 24);
 	ball.anchor.set(0.5);
 	game.physics.enable(ball, Phaser.Physics.ARCADE);
@@ -41,6 +42,7 @@ function create() {
 
 	//Paddle
 	paddle = game.add.sprite(game.world.width*0.5, game.world.height-5, 'paddle');
+	paddle.scale.setTo(1.3);
 	paddle.anchor.set(0.5, 1);
 	game.physics.enable(paddle, Phaser.Physics.ARCADE);
 	paddle.body.immovable = true;
@@ -80,7 +82,7 @@ function initBricks() {
 			top: 50,
 			left: 60
 		},
-		padding: 10
+		padding: 30
 	};
 
 	bricks = game.add.group();
@@ -90,6 +92,7 @@ function initBricks() {
 			brickX = ( c * (brickInfo.width + brickInfo.padding)) + brickInfo.offset.left;
 			brickY = ( r * (brickInfo.height + brickInfo.padding)) + brickInfo.offset.top;
 			newBrick = game.add.sprite(brickX, brickY, 'brick');
+			newBrick.scale.setTo(1.3);
 			game.physics.enable(newBrick, Phaser.Physics.ARCADE);
 			newBrick.body.immovable = true;
 			newBrick.anchor.set(0.5);
