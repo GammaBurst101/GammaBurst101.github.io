@@ -76,11 +76,11 @@ function initBricks() {
 		height: 20,
 		count: {
 			row: 3,
-			col: 7
+			col: 8
 		},
 		offset: {
 			top: 50,
-			left: 60
+			left: 80
 		},
 		padding: 30
 	};
