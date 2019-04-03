@@ -28,7 +28,7 @@ function preload(){
 function create() {
 	//Ball
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-	ball = game.add.sprite(game.world.width*0.5, game.world.height-25, 'ball');
+	ball = game.add.sprite(game.world.width*0.5, game.world.height-35, 'ball');
 	ball.scale.setTo(1.3);
 	ball.animations.add('wobble', [0,1,0,2,0,1,0,2,0], 24);
 	ball.anchor.set(0.5);
@@ -131,7 +131,7 @@ function ballLeaveScreen() {
 	if (lives >= 0) {
 		livesText.setText('Lives: '+lives);
 		lifeLostText.visible = true;
-		ball.reset(game.world.width*0.5, game.world.height - 25);
+		ball.reset(game.world.width*0.5, game.world.height - 35);
 		paddle.reset(game.world.width*0.5, game.world.height - 5);
 		game.input.onDown.addOnce(function() {
 			lifeLostText.visible = false;
