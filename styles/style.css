@@ -6,13 +6,22 @@ body {
 	background-image: linear-gradient( rgba(14.5%, 80%, 96.9%, 1), rgba(14.5%, 80%, 96.9%, 0) );
 	background-repeat: no-repeat;
 }
-h1 {
+
+h1, h2, p {
 	text-align: center;
-	color: white;
-	text-decoration: underline;
+	color: black;
 	font-family: cursive;
 	margin-top: 20px;
-	font-size: 90px;
+	font-size: 40px;
+}
+
+#txtUnderDiv {
+	margin-bottom: 100px;
+}
+
+h2 {
+	margin-top: 0px;
+	font-size: 20px;
 }
 
 /* Navigation Bar */
@@ -48,4 +57,9 @@ nav a:hover.pg-link {
 	font-size: 25px;
 	padding: 5px;
 	margin-left: 10px
+}
+
+#fillInTxt {
+	margin-bottom: 40vh;
+	margin-top: 40vh;
 }
