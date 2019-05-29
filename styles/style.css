@@ -6,11 +6,60 @@ body {
 	background-image: linear-gradient( rgba(14.5%, 80%, 96.9%, 1), rgba(14.5%, 80%, 96.9%, 0) );
 	background-repeat: no-repeat;
 }
-h1 {
+
+h1, h2, p {
 	text-align: center;
-	color: white;
-	text-decoration: underline;
+	color: black;
 	font-family: cursive;
 	margin-top: 20px;
-	font-size: 90px;
+	font-size: 40px;
+}
+
+#txtUnderDiv {
+	margin-bottom: 100px;
+}
+
+h2 {
+	margin-top: 0px;
+	font-size: 20px;
+}
+
+/* Navigation Bar */
+nav {
+	width: 100%;
+	height: 38px;
+	background-color: #67E6DC;
+	border-bottom: black solid 2px;
+
+	overflow: hidden;
+
+	font-family: sans-serif;
+}
+
+nav a {
+	display: block;
+	float: right;
+	text-decoration: none;
+	padding: 10px;
+
+	color: gray;
+	font-weight: bold;
+}
+
+nav a:hover.pg-link {
+	text-decoration: underline;
+}
+
+#logo {
+	float: left;
+	color: yellow;
+	text-shadow: 2px 2px 3px gray;
+	font-size: 25px;
+	padding: 5px;
+	margin-left: 10px
+}
+
+#fillInTxt {
+	margin-bottom: 40vh;
+	margin-top: 40vh;
 }
